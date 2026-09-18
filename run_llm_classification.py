@@ -1,8 +1,11 @@
-"""Run the LLM classifier over every row in raw_combined.csv that isn't already
-in ground_truth_400.json. Checkpoints to a JSONL file after every batch so an
-interruption can resume instead of restarting from zero. Rows that fail even
-after classify_batch's internal retries get a couple of extra whole-run retry
-passes at the end (transient errors are common at this volume)."""
+"""Classify every row in raw_combined.csv that isn't in ground_truth_400.json.
+
+- Checkpoints to a JSONL file after every batch; re-running resumes where it left off.
+- Rows the model omitted or that failed are retried in repeated passes (each call also has
+  its own exponential backoff); anything still failing is logged with a reason, never
+  silently dropped.
+- Set MAX_RUNTIME_SECONDS in the environment to cap a run (unset = no cap).
+"""
 import json
 import os
 import time
@@ -11,12 +14,12 @@ import pandas as pd
 
 import groq_classify as gc
 
-BATCH_SIZE = 6
-CHECKPOINT_PATH = "data/llm_classification_progress.jsonl"
-EXTRA_RETRY_PASSES = 1
-MAX_RUNTIME_SECONDS = 35 * 60  # remaining budget: the 55-min window had ~20 min used before the process was killed; hard cap per user instruction, whatever
-                                # the coverage, rather than chase full coverage against an
-                                # unpredictable free-tier burst/congestion throttle
+BATCH_SIZE = 10
+CHECKPOINT_PATH = "data/llm_classification_v2.jsonl"
+FAILURES_PATH = "data/llm_classification_failures.jsonl"
+SUMMARY_PATH = "data/llm_run_summary.json"
+RETRY_PASSES = 6
+MAX_RUNTIME_SECONDS = float(os.environ["MAX_RUNTIME_SECONDS"]) if os.environ.get("MAX_RUNTIME_SECONDS") else None
 
 df = pd.read_csv("data/raw_combined.csv")
 df["text"] = df["text"].fillna("")
@@ -24,104 +27,110 @@ df["id"] = df["id"].astype(str)
 
 ground_truth = json.load(open("data/ground_truth_400.json"))
 already_tagged_ids = {str(r["id"]) for r in ground_truth}
-
 target = df[~df["id"].isin(already_tagged_ids)].reset_index(drop=True)
-print(f"total rows: {len(df)}, already hand-tagged: {len(already_tagged_ids)}, "
-      f"to classify: {len(target)}")
 
-done_ids = set()
-if os.path.exists(CHECKPOINT_PATH):
-    with open(CHECKPOINT_PATH) as f:
-        for line in f:
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                done_ids.add(json.loads(line)["id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
-    print(f"resuming: {len(done_ids)} rows already classified in checkpoint")
 
+def read_jsonl(path):
+    out = []
+    if os.path.exists(path):
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    try:
+                        out.append(json.loads(line))
+                    except json.JSONDecodeError:
+                        pass
+    return out
+
+
+done_ids = {r["id"] for r in read_jsonl(CHECKPOINT_PATH)}
 remaining = target[~target["id"].isin(done_ids)].reset_index(drop=True)
-print(f"remaining to classify this run: {len(remaining)}")
+print(f"total rows: {len(df)} | hand-tagged: {len(already_tagged_ids)} | to classify: {len(target)} | "
+      f"already done: {len(done_ids)} | remaining this run: {len(remaining)}", flush=True)
 
 t0 = time.time()
 checkpoint_f = open(CHECKPOINT_PATH, "a")
 processed = 0
-failed_ids = []
+failure_reasons = {}  # id -> last reason
+
+
+def out_of_time():
+    return MAX_RUNTIME_SECONDS is not None and time.time() - t0 > MAX_RUNTIME_SECONDS
 
 
 def write_record(row, pred):
-    record = {
+    checkpoint_f.write(json.dumps({
         "id": str(row["id"]), "source": row["source"], "url": row["url"],
         "date": row["date"], "rating": row["rating"], "text": row["text"],
+        "labeled_by": "llm",
+        "source_model": gc.MODEL,
         "is_retrieval_case": bool(pred.get("is_retrieval_case")),
         "cluster": pred.get("cluster"),
         "opportunity_tag": pred.get("opportunity_tag"),
+        "tag_in_closed_set": pred.get("tag_in_closed_set"),
         "photo_type": pred.get("photo_type", ""),
         "what_they_remember": pred.get("what_they_remember", []),
         "what_they_forgot": pred.get("what_they_forgot", []),
         "search_attempt": pred.get("search_attempt", ""),
         "outcome": pred.get("outcome", ""),
         "workaround": pred.get("workaround", ""),
-    }
-    checkpoint_f.write(json.dumps(record) + "\n")
+    }) + "\n")
 
 
-time_budget_exceeded = False
-
-
-def run_pass(rows_df, pass_label):
-    global processed, time_budget_exceeded
-    still_failed = []
+def run_pass(rows_df, label):
+    """Returns ids still unclassified after this pass."""
+    global processed
+    left = []
     n_batches = (len(rows_df) + BATCH_SIZE - 1) // BATCH_SIZE
     for b in range(n_batches):
-        if time.time() - t0 > MAX_RUNTIME_SECONDS:
-            time_budget_exceeded = True
-            remaining_in_pass = rows_df.iloc[b * BATCH_SIZE:]
-            still_failed.extend(remaining_in_pass["id"].tolist())
-            print(f"[{pass_label}] time budget ({MAX_RUNTIME_SECONDS}s) reached, stopping "
-                  f"with {len(remaining_in_pass)} rows in this pass left unclassified", flush=True)
+        chunk = rows_df.iloc[b * BATCH_SIZE:(b + 1) * BATCH_SIZE]
+        if out_of_time():
+            left.extend(rows_df.iloc[b * BATCH_SIZE:]["id"].tolist())
+            print(f"[{label}] time cap reached; {len(left)} rows left in this pass", flush=True)
             break
-
-        chunk = rows_df.iloc[b * BATCH_SIZE: (b + 1) * BATCH_SIZE]
-        rows = [{"i": idx, "text": row["text"]} for idx, row in chunk.iterrows()]
-        result = gc.classify_batch(rows)
-
-        batch_ok = 0
+        result = gc.classify_batch([{"i": idx, "text": row["text"]} for idx, row in chunk.iterrows()])
+        ok = 0
         for idx, row in chunk.iterrows():
             pred = result.get(idx)
             if pred is None:
-                still_failed.append(row["id"])
+                left.append(row["id"])
+                failure_reasons[row["id"]] = gc.last_error[0] or "model omitted this row from its response"
                 continue
             write_record(row, pred)
+            failure_reasons.pop(row["id"], None)
             processed += 1
-            batch_ok += 1
+            ok += 1
         checkpoint_f.flush()
-        print(f"[{pass_label}] batch {b+1}/{n_batches} -> {batch_ok}/{len(chunk)} classified, "
-              f"{processed} total ({time.time()-t0:.0f}s elapsed)", flush=True)
-    return still_failed
+        print(f"[{label}] batch {b+1}/{n_batches}: {ok}/{len(chunk)} ok | {processed} this run | "
+              f"{time.time()-t0:.0f}s elapsed", flush=True)
+    return left
 
 
-failed_ids = run_pass(remaining, "main")
-
-for retry_num in range(1, EXTRA_RETRY_PASSES + 1):
-    if not failed_ids or time_budget_exceeded:
+pending_ids = run_pass(remaining, "main")
+for n in range(1, RETRY_PASSES + 1):
+    if not pending_ids or out_of_time():
         break
-    retry_df = target[target["id"].isin(failed_ids)].reset_index(drop=True)
-    print(f"\nretry pass {retry_num}: re-attempting {len(retry_df)} failed rows", flush=True)
-    failed_ids = run_pass(retry_df, f"retry{retry_num}")
+    print(f"\nretry pass {n}/{RETRY_PASSES}: {len(pending_ids)} rows still unclassified", flush=True)
+    pending_ids = run_pass(target[target["id"].isin(pending_ids)].reset_index(drop=True), f"retry{n}")
 
 checkpoint_f.close()
 
-if failed_ids:
-    with open("data/llm_classification_failures.jsonl", "w") as f:
-        for fid in failed_ids:
-            f.write(json.dumps({"id": fid}) + "\n")
-    print(f"\n{len(failed_ids)} rows not classified this run "
-          f"({'time budget reached' if time_budget_exceeded else 'failed after retry passes'}) "
-          f"-> data/llm_classification_failures.jsonl")
+with open(FAILURES_PATH, "w") as f:
+    for rid in pending_ids:
+        f.write(json.dumps({"id": rid, "reason": failure_reasons.get(rid, "not attempted (time cap)")}) + "\n")
 
 elapsed = time.time() - t0
-print(f"\nDONE. Classified {processed} rows in this run. Wall clock: {elapsed:.1f}s "
-      f"({elapsed/60:.1f} min). Time budget exceeded: {time_budget_exceeded}")
+prev = json.load(open(SUMMARY_PATH)) if os.path.exists(SUMMARY_PATH) else {"total_elapsed_seconds": 0, "runs": 0}
+summary = {
+    "total_elapsed_seconds": round(prev["total_elapsed_seconds"] + elapsed, 1),
+    "runs": prev["runs"] + 1,
+    "last_run_elapsed_seconds": round(elapsed, 1),
+    "last_run_classified": processed,
+    "rows_classified_total": len(read_jsonl(CHECKPOINT_PATH)),
+    "rows_eligible": len(target),
+    "rows_failed_after_retries": len(pending_ids),
+    "time_cap_hit": out_of_time(),
+}
+json.dump(summary, open(SUMMARY_PATH, "w"), indent=2)
+print(f"\nDONE. {json.dumps(summary)}")

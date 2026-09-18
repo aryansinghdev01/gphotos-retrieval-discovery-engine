@@ -30,7 +30,7 @@ def load_findings():
         data = json.load(f)
     for c in data["clusters"]:
         for case in c["cases"]:
-            case["verification"] = "human-verified"
+            case["labeled_by"] = "human"
     return {"version": 1, **data}
 
 
@@ -158,15 +158,17 @@ for i, cluster in enumerate(clusters):
             metric_cols = st.columns(3) if findings["version"] == 2 else st.columns(1)
             metric_cols[0].metric("Cases", cluster["case_count"])
             if findings["version"] == 2:
-                metric_cols[1].metric("Human-verified", cluster.get("human_verified_count", 0))
-                metric_cols[2].metric("LLM-classified*", cluster.get("llm_classified_partial_count", 0))
-            for case in cluster["cases"][:3]:
+                metric_cols[1].metric("Human-labeled", cluster.get("human_count", 0))
+                metric_cols[2].metric("LLM-labeled", cluster.get("llm_count", 0))
+            humans = [c for c in cluster["cases"] if c.get("labeled_by") == "human"]
+            llms = [c for c in cluster["cases"] if c.get("labeled_by") == "llm"]
+            for case in (humans[:2] + llms[:1]) or cluster["cases"][:3]:
                 quote = (case.get("_text") or "").strip().replace("\n", " ")
                 if len(quote) > 200:
                     quote = quote[:200].rstrip() + "…"
                 url = case.get("_url")
                 st.markdown(f"> {quote}")
-                badge = "🧑 human-verified" if case.get("verification") == "human-verified" else "🤖 LLM-classified*"
+                badge = "🧑 human-labeled" if case.get("labeled_by") == "human" else "🤖 LLM-labeled"
                 caption = f"{case.get('source', '')} · {case.get('opportunity_tag', '')} · {badge}"
                 if url:
                     st.markdown(f"[source]({url})")
@@ -175,10 +177,11 @@ for i, cluster in enumerate(clusters):
 if findings["version"] == 2:
     cov = findings.get("llm_classification_coverage", {})
     st.caption(
-        f"*LLM-classified cases come from a **partial** pass over the untagged corpus — "
-        f"{cov.get('rows_classified', 0):,} of {cov.get('rows_eligible', 0):,} eligible rows "
-        f"({cov.get('coverage_pct', 0)}%) were classified before a bounded time budget was hit. "
-        f"See Methodology below for why."
+        f"Human-labeled = hand-tagged sample ({findings['human_tagged_sample_size']} rows). "
+        f"LLM-labeled = {cov.get('rows_classified', 0):,} of {cov.get('rows_eligible', 0):,} remaining rows "
+        f"classified by {', '.join('`' + m + '`' for m in findings['classifier']['models_used'])} "
+        f"({cov.get('coverage_pct', 0)}% coverage{'' if cov.get('coverage_pct', 0) >= 100 else ' — PARTIAL'}). "
+        f"Counts are shown separately, never merged."
     )
 
 st.divider()
@@ -293,27 +296,27 @@ st.header("Methodology")
 
 if findings["version"] == 2:
     cov = findings.get("llm_classification_coverage", {})
-    llm_cases = findings.get("llm_classified_partial_cases", 0)
-    human_cases = findings.get("human_verified_cases", 0)
+    clf = findings["classifier"]
+    full = cov.get("rows_classified", 0) >= cov.get("rows_eligible", 1)
+    failed = cov.get("rows_failed_after_retries")
+    by_model = ", ".join(f"`{m}`: {n:,} rows" for m, n in clf["rows_classified_by_model"].items())
     st.markdown(
         f"""
 - **{findings['total_rows']:,} rows** collected from the Google Play Store, the Apple App Store,
   and Reddit (posts and comments across relevant subreddits and site-wide search).
 - **{findings['human_tagged_sample_size']:,} rows** (~{findings['human_tagged_sample_size'] / findings['total_rows'] * 100:.1f}%)
-  were manually hand-tagged against a structured schema distinguishing genuine photo-retrieval
-  failures from general complaints — this is the ground truth.
-- An LLM classifier (Groq, `{CHAT_MODEL}`) was validated blind against those {findings['human_tagged_sample_size']}
-  hand-tagged rows before being trusted on anything else — see the validation numbers below.
-- The same classifier was then run on the remaining **{cov.get('rows_eligible', 0):,} untagged rows**,
-  but only completed **{cov.get('rows_classified', 0):,} of them ({cov.get('coverage_pct', 0)}%)**
-  before hitting a bounded time budget — Groq's free tier applies an unpredictable
-  burst/congestion throttle that made full coverage impractical within a reasonable wall-clock
-  time. **This is partial coverage, not the full corpus** — treat the LLM-classified count as a
-  lower bound, not a complete scan.
-- That partial pass added **{llm_cases} LLM-classified cases** on top of the **{human_cases}
-  human-verified** ones from the hand-tagged sample — **{findings['total_confirmed_cases']}
-  confirmed cases** total so far. Every case in the cards above is labeled human-verified or
-  LLM-classified so you can see which is which.
+  were hand-tagged against a structured schema distinguishing genuine photo-retrieval failures from
+  general complaints — the ground truth. This produced **{findings['human_cases']} human-labeled cases**.
+- An LLM classifier (Groq, free tier) was validated blind against those hand-tagged rows before being
+  used (numbers below). It picks each case's tag from a **closed set of {clf['closed_tag_set_size']} tags** taken from
+  the hand-tagged findings, and the cluster is derived from the tag, so counts roll up into the same
+  4 clusters. Tags outside the set are flagged ({clf['llm_cases_with_tag_outside_closed_set']} of {findings['llm_cases']} LLM cases).
+- The LLM classified **{cov.get('rows_classified', 0):,} of the {cov.get('rows_eligible', 0):,} untagged rows
+  ({cov.get('coverage_pct', 0)}%)**{' — the full remainder of the corpus.' if full else '. **This is PARTIAL coverage** — Groq\'s free tier throttled every model we tried, so the run was stopped to meet a deadline. Treat LLM counts as a lower bound, not a full scan of the corpus.'}
+  Rows by classifier: {by_model}. Every case records its `source_model`.
+  {'No rows failed after retries.' if failed == 0 else (str(failed) + ' rows failed even after retries.' if failed else '')}
+- That produced **{findings['llm_cases']} LLM-labeled cases**, kept separate from the
+  {findings['human_cases']} human-labeled ones in every count above ({findings['total_cases']} total).
 """
     )
     validation_path = os.path.join(BASE_DIR, "data", "validation_report.json")
@@ -332,6 +335,28 @@ if findings["version"] == 2:
             f"negatives (is_retrieval_case classification, blind — tags stripped before sending). "
             f"Scored on {v['n_rows'] - v.get('n_missing_predictions', 0)} of {v['n_rows']} rows — "
             f"{v.get('n_missing_predictions', 0)} rows got no prediction (API failures) and are excluded."
+        )
+        tag_match = v.get("opportunity_tag_exact_match_rate_on_true_positives")
+        if tag_match is not None:
+            st.caption(
+                f"Tag agreement: on the {v['confusion']['tp']} cases both the LLM and the human flagged, the LLM "
+                f"chose the same opportunity tag as the human {tag_match*100:.0f}% of the time "
+                f"(model: `{v.get('model', 'n/a')}`, closed tag set — every predicted tag came from the fixed list)."
+            )
+    mini_path = os.path.join(BASE_DIR, "data", "validation_report_mini.json")
+    if os.path.exists(mini_path):
+        with open(mini_path) as f:
+            m = json.load(f)
+        st.subheader(f"Second classifier: `{m['model']}` (mini-validation, {m['sample']['n']} rows)")
+        mc = m["this_model"]
+        mcols = st.columns(3)
+        mcols[0].metric("Recall", f"{mc['recall']*100:.0f}%")
+        mcols[1].metric("Precision (at real 12.5% base rate)", f"{(mc['precision_at_real_prevalence'] or 0)*100:.0f}%")
+        mcols[2].metric("Agreement w/ gpt-oss-120b", f"{(m['agreement_with_gpt_oss_120b_on_is_retrieval_case'] or 0)*100:.0f}%")
+        st.caption(
+            f"Small sample ({m['sample']['positives']} positives + {m['sample']['negatives']} negatives, "
+            f"positives oversampled) — treat these as rough, not tight, estimates. "
+            f"{m['rows_predicted']} of {m['sample']['n']} rows got a prediction."
         )
 else:
     st.markdown(
