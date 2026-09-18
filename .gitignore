@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+.DS_Store
+run_log*.txt
+streamlit_run.log
+data/raw_play_store.csv
+data/raw_app_store.csv
+data/raw_reddit.csv

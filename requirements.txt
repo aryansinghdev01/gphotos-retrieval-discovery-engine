@@ -1,0 +1,5 @@
+google-play-scraper
+requests
+pandas
+tqdm
+streamlit
