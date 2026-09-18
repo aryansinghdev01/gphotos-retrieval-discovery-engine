@@ -1,0 +1,1262 @@
+{
+  "total_rows": 4546,
+  "human_tagged_sample_size": 400,
+  "human_verified_cases": 50,
+  "llm_classification_coverage": {
+    "rows_eligible": 4146,
+    "rows_classified": 336,
+    "coverage_pct": 8.1,
+    "note": "LLM classification of the full corpus was capped at a bounded wall-clock time budget due to unpredictable burst/congestion throttling on Groq's free tier. Only 336 of 4,146 remaining (not hand-tagged) rows were classified in this run \u2014 this is PARTIAL coverage, not the full corpus."
+  },
+  "llm_classified_partial_cases": 30,
+  "total_confirmed_cases": 80,
+  "clusters": [
+    {
+      "name": "Browsing/visual structure removed or broken",
+      "case_count": 36,
+      "human_verified_count": 23,
+      "llm_classified_partial_count": 13,
+      "cases": [
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "4bmhpn",
+          "opportunity_tag": "folder-to-album mismatch",
+          "photo_type": "auto-backed-up photos organized by folder",
+          "what_they_remember": [
+            "which folders they selected to back up"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "looked on photos.google.com web for the same folder structure seen on the app",
+          "outcome": "unclear",
+          "workaround": "asking the community, no resolution shown",
+          "_text": "Google Photos: How to find auto backed-up photos by folder?\nI feel like I'm missing something stupidly simple. When you select folders to back up with the google photos android app, you can clearly see all the folder names you're saving your pictures from. Yet when I go to photos.google.com on my laptop, I can't find any of those folders anywhere. What am I missing? Or is this feature just missing?",
+          "_url": "https://www.reddit.com/r/google/comments/4bmhpn/google_photos_how_to_find_auto_backedup_photos_by/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "hbt3aq",
+          "opportunity_tag": "lost organizational tools reduce findability",
+          "photo_type": "general library, no single photo",
+          "what_they_remember": [
+            "Picasa's captions/metadata edits/facial recognition made everything findable"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "none described - chronic complaint, not one incident",
+          "outcome": "unclear",
+          "workaround": "stitching together 2-3 separate programs instead of one",
+          "_text": "I wish someone would create a real replacement for Picasa\nI really don't understand why no one has yet. Picasa had some very good, if basic, photo editing tools. But where it really shined was in organization. Captions, updating meta data, facial recognition, its abilities to sort, label, recognize and find photos is amazing i still can't find anything close. I wish someone would pick up the mantle that Google dropped and give us an updated versatile tool like that again, instead of having to try to use 2 or 3 programs to attempt to do what 1 used to.",
+          "_url": "https://www.reddit.com/r/photography/comments/hbt3aq/i_wish_someone_would_create_a_real_replacement/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "57c4e2c3-bd79-4f5b-bc36-143fca1399bb",
+          "opportunity_tag": "no traditional file/folder navigation",
+          "photo_type": "general library, no single photo",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried navigating a file-system-like view",
+          "outcome": "failure",
+          "workaround": "gave up, wants old-style file system back",
+          "_text": "Google's insistence on trying to get you away from just a normal file system is insane. It's basically impossible to find or organize anything anymore. Navigating the file system manually via files is significantly easier than trying to put up with this.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "12567669066",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "general library organization",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "unclear",
+          "workaround": "none, standing feature request",
+          "_text": "Nested Album\nIt\u2019s 2025 already and there is still no nest album or folder within a folder",
+          "_url": "https://apps.apple.com/ca/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "5cda38fc-1861-4957-93f1-11a8360ce5db",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library, browsing by month",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "browsed the grid, which used to be grouped by month",
+          "outcome": "failure",
+          "workaround": "none, wants the old monthly-grouped layout restored",
+          "_text": "What the heck happened in the latest update where now instead of breaking out each month and everything, it's now just one giant grid. As usual every upgrade/update is a downgrade for Google. Put it back the way it was!!",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "8906fcca-3a42-46e7-8920-3924a09e0dcf",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library, browsing by month",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "browsed the grid after month grouping disappeared",
+          "outcome": "failure",
+          "workaround": "none, wants the change reverted",
+          "_text": "Stop changing stuff no one is complaining about. Went into my app only to see ALL my photos squished together bc the month disappeared. I really dislike what happens when you click edit now. The cropping is AWFUL. You can't edit and then edit again after saving bc it makes you edit the original. Please change it back. Also now, when you click share a whole edit window pops up, which has to be skipped first. Get rid of this, if we wanted to edit, we'd click edit first.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "b472a0e9-a4d8-4d08-983b-490b233a3cee",
+          "opportunity_tag": "broken chronological ordering hurts browsing",
+          "photo_type": "general library, browsing/scrolling",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "scrolled through the grid expecting chronological order",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Horrible layout now with odd photos extra large. I want them all thumbnail size. Looks horrible and delete is now messy as they aren't shown in time order properly now. The first \"big\" picture shown for the month isn't even the first picture of the month - it doesn't even arrange them chronological order now thanks to the developers idea of \"design\". A mess.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "c6203c16-9d99-4964-a91f-fecbafea047e",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "general library organization",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "unclear",
+          "workaround": "none, feature request for real folder control",
+          "_text": "I'd like to control how I have my photos. This album concept is different from actual folders where I can put what I want. Sometimes I don't want a photo in the cloud or in the \"main\" folder.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "120ecca3-f5fc-4cb0-bdd3-c92f090f9201",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library, browsing by month",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "used a zoomed-out grid view to browse consistently by month",
+          "outcome": "failure",
+          "workaround": "none, wants the option to revert",
+          "_text": "The new update has caused my photos to no longer appear in a grid of all the same size within the month they were taken. I have the photo view purposefully zoomed all the way out for the sole purpose of that consistent grid, and now the view looks like a bad slideshow made at 3 am by an unpaid intern. At least give us the option to go back.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "11617265731",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "photo albums",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none, album selection UI removed, covers randomly disappear, counts wrong",
+          "_text": "New design is not user friendly\nI\u2019ve been using this app for 7 years but the new features make it difficult to use. there is no option to select the albums you want to display anymore. not enjoying this new design at all. photo count for albums is incorrect. photo albums covers disappear and many more issues",
+          "_url": "https://apps.apple.com/gb/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "9bf5689f-66c3-4ea9-b529-9718dc4fc96d",
+          "opportunity_tag": "favorites/quick-access broken, forces manual browsing",
+          "photo_type": "favorited screenshots used as quick-access references",
+          "what_they_remember": [
+            "that the photo was saved to favorites as a reference"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "manually digging through ~4k screenshots after favorites folder was cleared",
+          "outcome": "failure",
+          "workaround": "manual search through the full screenshot library",
+          "_text": "My favorites on my Motorola keep getting removed from that folder for no reason! This is the second time it has happened and as an artist, i use the favorites folder to save my references from my screenshots as a shortcut. It's irritating everytime it happens because then i have to spend an hour diving into the ocean of my almost 4k screenshots to find the reference im looking for. Fix it!!! PS: Please make it to where i can create my own folders, and stop trying to force me to turn on backup!!",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "0e30f636-e793-44a6-946d-d5134280e1f2",
+          "opportunity_tag": "favorites/quick-access broken, forces manual browsing",
+          "photo_type": "favorited photos",
+          "what_they_remember": [
+            "that photos were marked as favorites"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "checked favorites after an app update",
+          "outcome": "failure",
+          "workaround": "none, recurring across updates",
+          "_text": "my favorites are ALWAYS LOST when there is an update. There's no trusting this app. based on the reply, it seems that Google photos doesn't even know how their \"Favorite\" function work...",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "13770765889",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library grid, skimming through hundreds of photos",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried to visually skim the grid relying on a consistent square layout and chronological order",
+          "outcome": "failure",
+          "workaround": "none, wants the old 1:1 grid restored",
+          "_text": "Latest \u201cupdate\u201d to UI is horrible.\nWhy remove the ability to set the photo grid to 1:1 squares? Instead, it randomly tosses in large, aspect-ratio images. Screws up the chronology and makes it hard to skim through 100s of photos. Why remove this basic UI functionality. I guess Google\u2019s just letting Ai run wild with their app dev now? Absolute garbage.",
+          "_url": "https://apps.apple.com/ca/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "f89b10aa-9f78-40e0-a1d7-edb1572d1c12",
+          "opportunity_tag": "favorites/quick-access broken, forces manual browsing",
+          "photo_type": "favorited photos",
+          "what_they_remember": [
+            "that photos were marked favorite"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "checked the favorites list after marking photos",
+          "outcome": "failure",
+          "workaround": "none, extensive search of reddit/tech sites/help pages found no fix",
+          "_text": "As of last week I seem to be unable to favorite photos, without them immediately being removed from favorites. I have combed reddit, tech sites, google help pages, and cant find any solutions. I tried updating the app, restarting my phone, clearing my cache. Nothing works and based on what I am reading online, other people have been having the same problem for years with no resolution. Getting through to customer service seems so time consuming and impossible that Id rather just write here.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1adrk6s",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "albums (custom + auto-generated face albums)",
+          "what_they_remember": [
+            "roughly what the album relates to, but not its exact name"
+          ],
+          "what_they_forgot": [
+            "the exact album title"
+          ],
+          "search_attempt": "tried sorting albums (only 'last photo added' sort exists), trawling through all albums manually",
+          "outcome": "failure",
+          "workaround": "manually prefixing album names with YYYY-MM to force a usable sort order",
+          "_text": "Am I the only one that things album organisation is really poor?\nAlbums can be great of course, but in Google Photos I find them a really pain to actually use because sorting them or organising them is nigh on impossible. The only sort available is \"last photo added\" so if I can't remember the actual name of the album I've got to trawl through all of the albums I've ever created. Would just like something simple like the ability to group them somehow (e.g. \"Holidays\", \"Sports\") or even nest them by year and month. Or even just adding the ability to give them a tag / label as you can do with emails in gmail so that they can be more easily navigated through. Anyone got any tips for how they manage them? I've started thinking about prefixing every album with YYYY-MM or YYYY so for example \"2023-06 Family holiday in France\", but that doesn't work for them all as I've got auto-generated albums for each important face in my family (for those I could just prefix \"AUTO FACE\" or something similar.",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1adrk6s/am_i_the_only_one_that_things_album_organisation/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "13741675094",
+          "opportunity_tag": "broken chronological ordering hurts browsing",
+          "photo_type": "photos with incorrect date metadata",
+          "what_they_remember": [
+            "the approximate correct timeframe relative to a known life event"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "browsed chronologically by date, found photos misplaced due to wrong dates",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Dates\nHow can these photo apps keep getting dates wrong? I often see photos of my son from February (or other months) before he was even born \ud83e\udd23\ud83e\udd23 the developers are useless",
+          "_url": "https://apps.apple.com/gb/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "7599bed0-ec71-4790-86ad-2424124ab16e",
+          "opportunity_tag": "broken chronological ordering hurts browsing",
+          "photo_type": "general library ordering",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "expected pictures arranged in the order added/taken",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "My only problem is that it doesn't arrange the pictures in the order that they were put on there.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "0921cf07-b40e-42bf-918e-22e50b77d10e",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library grid thumbnails",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried to make grid thumbnails uniform to skim consistently",
+          "outcome": "failure",
+          "workaround": "none, no option available",
+          "_text": "The newest update has NO way of making the thumbnails Grid UNIFORM size. some thumbnails WILL be larger than others seemingly at random, and makes no SENse why there IS no option TO do thIS.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "2cf194fe-d8bb-4560-9d6b-296a9d0c0b0d",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "photo albums",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried to reorganize/rearrange album layout back to a neater view",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "The UI used to be a lot better. Especially organizing albums is a headache and there's no option to change the way they look back into a more neat layout, as if the lack of album arrangement features wasn't already bad enough",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "7625719c-eca6-42fe-a844-88475b04aac5",
+          "opportunity_tag": "wants easier retrieval of most-recent items",
+          "photo_type": "recent/last videos",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "unclear",
+          "workaround": "none, thin evidence",
+          "_text": "retrive last videos",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "37vau1",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "albums/collections",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried to view/organize albums as thumbnails like the old app allowed",
+          "outcome": "failure",
+          "workaround": "none, considering leaving the platform entirely",
+          "_text": "Am I the only person who thinks the new Photos app is a MASSIVE step backwards?!\nThe old editing tools were one of the best parts of Google Photos, now they've all been almost utterly annihilated. Editing your photos no longer saves the changes on a single photo and stores a backup, it creates a duplicate. Albums can no longer be organised or viewed as thumbnails, only scrolled through one at a time. Creating new albums (collections) is painful and unintuitive. Photos are no longer automatically enhanced and there's not even a way to enhance collections anymore. Its like they've removed all the best parts and replaced them with a totally new app built by beginners. The app now feels like its from 5 years ago and is designed for children. One of the most powerful online photo storage/editing apps has become one of the worst overnight. I've been using it since the early Picasa days and have enjoyed every new iteration and innovation but I'm now seriously considering finding something else (any suggestions?) Why aren't people getting upset about this?! I'm absolutely livid!",
+          "_url": "https://www.reddit.com/r/google/comments/37vau1/am_i_the_only_person_who_thinks_the_new_photos/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "a621ca08-b2c7-46f3-aad2-72a9743fbda0",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library, category-based browsing (Explore tab)",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "unclear",
+          "workaround": "none, feature request to bring the removed Explore tab back",
+          "_text": "The app gives you the ability to fully back up your android Google service device . and with the ability to access your info from anywhere by simply remembering your Logins (google ) Awesome app. Highly recommend \ud83d\udc4cPlease bring back the Explore option I beg you \ud83d\ude4f",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "13748016433",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "general library, selecting by month/year for bulk actions",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "tried to select photos by month and year to download/migrate them",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "UI traps to stop you downloading\nWith a Google workspace account Google have done everything they can to disable and break all ways of downloading Google photos to iCloud. Latest one disables selecting by month and year",
+          "_url": "https://apps.apple.com/gb/app/google-photos/id962194608"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "147e9dcb-a278-4def-a615-723c342d49a8",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Google has had issues with properly syncing photos to the app for years and has done absolutely nothing to address it. all photos in albums are out of order regardless of date taken/Metadata in the app, even though desktop has correct order. nothing can be done to force a resort, even some of the online tips that used to work no longer do, as if Google \"fixed\" being able to fix their glitch and is forcing people to have random sort pushed on them hoping to shove people over to Apple devices.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "dbe214e1-c15a-42a2-b0ea-01c4508b1120",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "",
+          "workaround": "",
+          "_text": "Please add an option to hide folders, such as the Movies or Videos folders, from the Collections section. Also, please add an option to resize folders in Collections. It would be great if users could make a folder larger or smaller by using a two-finger pinch gesture, similar to zooming.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "d3132750-e08f-4a71-9117-5c9dfaacbe11",
+          "opportunity_tag": "browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "trying to locate specific photos to email",
+          "outcome": "failure",
+          "workaround": "manual scrolling",
+          "_text": "harder than hell to get up the photos I want, and send them via email.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "b0b41afd-959c-4ce5-b97b-ec20bf987318",
+          "opportunity_tag": "pictures hidden in folders hard to locate",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "",
+          "workaround": "",
+          "_text": "See all the reasons above and below my review. Pictures are hidden in folders and hard to locate. Limited storage sucks and you get 1 star for that. Don't expect much. the ai now catalogs all your pictures so there's that.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "d874566f-b1d1-4ea6-b0f6-4db4b36fd46c",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "",
+          "what_they_remember": [
+            "photos misfiled"
+          ],
+          "what_they_forgot": [
+            "ability to modify tags",
+            "private folder"
+          ],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "How did I just discover Google Photos now \ud83d\ude43 but I do have some complaints 1: alot of photos/videos are misfiled cuz you can't modify who is tagged in it. You should be able to manually box and tag. Especially with side view faces that aren't recognized 2: For more private photos/videos there should be a private folder. 3: when im assigning a face to a name i already have, it won't let me select the name rather or gives me an error message",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "be430887-186c-448a-9e15-c01d77128978",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Not intuitive for digital art, which most of my pictures are. The Memories and Face Recognition and such only pay attention to the (very few) actual photos and thus are not helpful. AI tools are trash. If this app wasn't conveniently synced to my Google account I would uninstall and find something else. Also, make the \"folders\" button easier to get to, and then STOP MOVING IT AROUND! And stop rearranging the order of the *comic panels* in my *album*.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "a7f036a9-e0a4-442e-b7a3-e1c5474ae7e7",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "Won't let me choose which folders I see in the app. For some reason it started showing stuff that are not photos taken by me like WhatsApp media and also backing them up. And I can't for the life of me select which folders I want Google Photos to access.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "5ededee8-5827-4c39-a383-67d8da81eba1",
+          "opportunity_tag": "cannot move photos to device gallery",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "use gallery app",
+          "_text": "Can't easily move MY OWN photos from the app to my gallery on my phone???????",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "0e6aa118-9740-41ed-a69f-71ae77b27761",
+          "opportunity_tag": "favorites/quick-access broken forces manual browsing",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "it sucks. the pop up is not letting me see my photos",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "61561c4c-5b1a-4e18-8f3a-caac3984c063",
+          "opportunity_tag": "removed browsing structure hurts findability",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "worst photo app in existence. want to see all your photos? sorry, we put them all in separate and inconvenient albums. utter garbage",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "4e8d053b-6b2c-437c-adaa-da056d2b0115",
+          "opportunity_tag": "favorites/quick-access broken forces manual browsing",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "loading mulu pas dibuka",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "178aad3e-06c4-4d80-a6db-a0ca829726a9",
+          "opportunity_tag": "no nested folders/albums for organization",
+          "photo_type": "photo",
+          "what_they_remember": [],
+          "what_they_forgot": [
+            "all folders"
+          ],
+          "search_attempt": "not displaying all folders",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "its not capturing all my photos and is not displaying all folders",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "e2e3dd69-00bd-4b88-990a-4ec427ef85be",
+          "opportunity_tag": "filing removes photos from main view",
+          "photo_type": "",
+          "what_they_remember": [
+            "filing photos"
+          ],
+          "what_they_forgot": [
+            "photos disappearing from main page"
+          ],
+          "search_attempt": "trying to locate filed photos",
+          "outcome": "failure",
+          "workaround": "use backup or avoid deleting from main page",
+          "_text": "You file the photos meticulously but if you then delete them from the main page (because you'd filed them) they also disappears from the file. Ridiculous. I just can't understand why filing doesn't save them safely. Isn't that the point of filing? However I appreciate the ability to edit easily. Thanks for previous response (deleted since this edit) but don't see how that helps.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        }
+      ]
+    },
+    {
+      "name": "Search itself is broken",
+      "case_count": 17,
+      "human_verified_count": 13,
+      "llm_classified_partial_count": 4,
+      "cases": [
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "9bae19b0-2f3a-41a7-a22e-d54a09dfbbb7",
+          "opportunity_tag": "keyword search returns no results for existing photo",
+          "photo_type": "unspecified, keyword-searched photo",
+          "what_they_remember": [
+            "knows the photo exists (it was already backed up)"
+          ],
+          "what_they_forgot": [
+            "the exact keywords that would surface it"
+          ],
+          "search_attempt": "searched by keyword",
+          "outcome": "failure",
+          "workaround": "manual scrolling",
+          "_text": "the app has been so poor recently with the search keywords. even when your photo is being backedup, you still have to look for it manually. I wonder whats the usefulness of the search if you cant find your pictures without seeing \"no results\"",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1qbdo8i",
+          "opportunity_tag": "new AI ask-search underperforms old keyword search",
+          "photo_type": "birds (e.g. kookaburras), planes",
+          "what_they_remember": [
+            "a keyword like 'kookaburra' or 'birds' that used to reliably work"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "typed the old keyword search; tried the new 'Ask' feature for the same term",
+          "outcome": "failure",
+          "workaround": "none, gave up frustrated",
+          "_text": "Google photos removing 'search' and replacing it with 'ask' is the worst feature I've ever seen\nI take a lot of photos. I have over 50k photos and videos on my phone. I like taking photos of birds. I used to be able to search 'kookaburra' and a kookaburra would show up.... Now nothing comes up at all. So instead, I 'ask' for birds... It shows me 6 photos. I have over 400 photos of birds... I live undermeath a flight path and take photos of the planes all the time... 'ask' shows me only 19 photos... I probably have a few hundred What the actual fuck is this AI bullshit",
+          "_url": "https://www.reddit.com/r/GooglePixel/comments/1qbdo8i/google_photos_removing_search_and_replacing_it/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "17yjhmu",
+          "opportunity_tag": "date search stopped working",
+          "photo_type": "photos from a particular day",
+          "what_they_remember": [
+            "the specific date"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "tried multiple date formats (3/15/23, 3/15/2023, 031323)",
+          "outcome": "failure",
+          "workaround": "none, asking the community for help",
+          "_text": "Google Photos - Searching by Date No Longer Working\nHello, I can no longer search by date to pull up photos from a particular day. I've tried various input formats (3/15/23, 3/15/2023, 031323, etc) and none of them work. I used to search by date all the time. Not sure if this is a known bug or I'm doing something wrong. Using version 6.61 on Android 13 5.1. Really appreciate any advice or input. Thanks in advance for any help.",
+          "_url": "https://www.reddit.com/r/androidapps/comments/17yjhmu/google_photos_searching_by_date_no_longer_working/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "823fb45a-ebb4-4721-bb4d-7565ed12f99a",
+          "opportunity_tag": "search degraded, needs many more clarifying steps",
+          "photo_type": "general library, 20 years of organized photos",
+          "what_they_remember": [
+            "basic identifying details that used to narrow a search directly"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "same searches that used to work directly now need 5-6 clarifications",
+          "outcome": "failure",
+          "workaround": "repeated clarifying searches, fighting app-generated noise",
+          "_text": "The search has ruined 20 years of careful intentional activity. the most basic things cannot be found now. searches that would have narrowed down and put a result out. now take five or six clarifications, including having to shut down the noise generated by the app",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1ijy6ie",
+          "opportunity_tag": "OCR/text-in-image search broke",
+          "photo_type": "documents, slides, text-containing photos (e.g. medicine labels, screenshots)",
+          "what_they_remember": [
+            "specific text/words that appeared in the image"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "searched by the text visible in the image, which used to work on app and web",
+          "outcome": "failure",
+          "workaround": "none, inconsistent partial results for some words",
+          "_text": "Can't find text in images on Google Fotos anymore, super annoying\nEver since I could search for text on images stored by me in google fotos. Pics of Slides, Text on Photos of Documents ... All of the sudden I can't find images by the text on it, neighter my android app, nor in the webbrowser - which defenitely both worked, up to recently. With some words it still finds SOME images, bot not others where the text is recognizable good enough to be indexed by a machine. Super annoying - was one of the main features of Google Fotos i regularly used. Does anyone experience the same? How to solve this? Is there any context for this.",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1ijy6ie/cant_find_text_in_images_on_google_fotos_anymore/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "37va02",
+          "opportunity_tag": "keyword search returns no results for existing photo",
+          "photo_type": "general photos of everyday subjects (cars, gardens, houses, furniture)",
+          "what_they_remember": [
+            "the general subject matter shown in the photo"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "typed generic keywords expecting auto-tagging/object recognition to surface matches",
+          "outcome": "failure",
+          "workaround": "none, told to 'try a synonym or more general keyword'",
+          "_text": "I cant search my photos with the new Google Photo's. Is there something I have to do?\nI have never used google+, drive, picassa, etc.... so yesterday I uploaded all the pictures from my phone to the new Google Photo. I wanted to try the search feature. So I put up 300 or so pictures. Almost right away if found 4 pictures of me, and put them under a group called people. then about 3 hours later a new group appeared called things, and there is one picture of a car. When I click the car, it brings up \"try a synonym or more general keyword.\" I have many generic looking pictures grass, gardens, trains, cars, houses, and furniture. I cant seem to search for anything and yet I have read people can type beer, bar, selfies, and what not and if finds things. what am I doing wrong or do I have to wait forever for google to do whatever to them.",
+          "_url": "https://www.reddit.com/r/google/comments/37va02/i_cant_search_my_photos_with_the_new_google/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "793b58af-683c-4c3e-b193-3c8528f0cc56",
+          "opportunity_tag": "keyword search returns no results for existing photo",
+          "photo_type": "pics and videos, general keyword search",
+          "what_they_remember": [
+            "words/keywords related to the pic or video"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "typed keyword searches, with and without quotation marks",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "You need to bring the rewind and fast forward buttons back! Also, it's getting very difficult to search for pics and videos when you type in words now because it won't accept the words with or without quotation marks now. can y'all make it more easier again please?",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1iaob2b",
+          "opportunity_tag": "OCR/text-in-image search broke",
+          "photo_type": "screenshots containing text/screennames",
+          "what_they_remember": [
+            "a specific word or screenname visible in the screenshot"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "searched by the visible text/screenname, which used to work reliably",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "is google photos search function limiting my searches to text so i cant find text in screenshots?\nidk why but i try to find a screenshot with a certain screenname or word but it never comes up . i search my own screenname and it comes up but never consistently or recently moreover even words clearly in the screenshot arent searchable especially in recent times and especially since i was able to do all of this very easily in the very recent past. what gives?",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1iaob2b/is_google_photos_search_function_limiting_my/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1fd0vod",
+          "opportunity_tag": "search completely broken after app update",
+          "photo_type": "general library search",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "searched for anything, expecting either results or a 'no results' message",
+          "outcome": "failure",
+          "workaround": "reverting to the old app version restores search, but they're forced to re-update repeatedly",
+          "_text": "Search feature in Google Photos stopped working after update, how can I handle this? Any advice would be greatly appreciated.\nI\u2019m using an Oppo Reno 4 Pro on Android 12. After updating Google Photos, the search function stopped working. Whenever I search for anything, I just get a blank page, which seems like an error because normally there would be a message saying \"no results\" if nothing is found. If I uninstall the update and revert to the old version, the search function works fine, but the in-app message keeps appearing, forcing me to update every time I open the app, even though I\u2019ve turned off auto-update in Google Play and disabled all notifications and suggestions. I\u2019ve attached 2 screenshots: 1. The search not working (just a blank page). 2. The old version where search works fine, but the update prompt keeps showing up. Has anyone else had this issue, or could anyone kindly suggest a fix?",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1fd0vod/search_feature_in_google_photos_stopped_working/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1bgypnl",
+          "opportunity_tag": "OCR/text-in-image search broke",
+          "photo_type": "screenshots with visible text",
+          "what_they_remember": [
+            "a specific word they knew was written in the screenshot"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "typed the exact word they remembered seeing in the image",
+          "outcome": "failure",
+          "workaround": "none, inconsistent and worsening over time",
+          "_text": "Search text in picture (OCR) not always working\nHello One of the most common search that I do on Google photos is text that I remember is on the picture. I took a screenshot couple of weeks back, and I type a word I knew was there and google photos couldn't find it. I went back to find that screenshot and the word was clearly written. This is just an example but I notice I have more and more fails from Google photo search, why isn't it consistent? How to improve it",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1bgypnl/search_text_in_picture_ocr_not_always_working/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "a2bee9ea-3dfd-431d-aa09-fbbf49e52c3a",
+          "opportunity_tag": "keyword search returns no results for existing photo",
+          "photo_type": "general library, object/scene search (human, animal, painting, rollercoaster)",
+          "what_they_remember": [
+            "general subject/object categories known to be in their camera roll"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "searched terms that had reliably worked before",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "the latest update is garbage. the search function is useless. I search up human, animal, painting, rollercoaster, all things that ARE IN MY CAMERA ROLL and all things I've looked up before. it used to find these things perfectly fine. but now it's completely useless and won't give me ANY results.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "2530ee6e-ba36-4da9-a8b4-5a7b57de60aa",
+          "opportunity_tag": "keyword search returns no results for existing photo",
+          "photo_type": "general library, keyword search",
+          "what_they_remember": [
+            "keywords that previously matched hundreds of relevant photos"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "typed the same keywords that used to work reliably",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "The search function is garbage now. Keywords that I used to search for pictures that would bring back hundreds of pics, including the ones I was looking for, now bring \"No Results.\" Why did you break it like this?",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1fgvlol",
+          "opportunity_tag": "new AI ask-search underperforms old keyword search",
+          "photo_type": "photo of specific known people (family/friends)",
+          "what_they_remember": [
+            "who the people in the photo were"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "used the new 'Ask Photos' AI feature, labeling people first",
+          "outcome": "failure",
+          "workaround": "retrained the AI by confirming relationships manually after the first attempt returned no results",
+          "_text": "The new Ask Photos feature in Google Photos is amazing!\nI saw the new Ask tab on Google photos and decided to try it out with the photo I had just come to look for, and after teaching it who people were (\"Friend\", \"Child\", \"Brother\", etc), I gave it a try and it failed. No results, but oh ho, what's this? It's asking me to help it learn? Sure, let's it give a try... And then it asked me if the other costumed person was his bother! Then it new who the character was! I'm super impressed.",
+          "_url": "https://www.reddit.com/r/google/comments/1fgvlol/the_new_ask_photos_feature_in_google_photos_is/"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "72dcb862-c595-4edf-a0a9-0ba0b9d4519e",
+          "opportunity_tag": "search completely broken after app update",
+          "photo_type": "",
+          "what_they_remember": [
+            "100s of repair photos"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "TEXT/SUBJECT search 'Car Engine'",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "Pixel 10. Forced Updates. TEXT/SUBJECT search is FAIL. \"Car Engine\" - have 100s of repair photos But Only 15 Show? Often AI says \"none\"or wonky/useless \"results\" includes ALOT (100s +) irrelevant results. Edited Image cannot be reedited, reverts to original photo\ud83d\ude16 Organization is dreadfull. Cannot Sort FOLDERS or PEOPLE by Name, result is a jumbled mess . Many important faces NOT FOUND so edit & Create PEOPLE w/name & App still not autoadded But Fuzzy Background Nobody faces are \ud83e\udd2f",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "d8a6e523-2eb2-499f-ba0a-b242a82b38a5",
+          "opportunity_tag": "search completely broken after app update",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "The image search feature has actually gotten worse.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "8814cf63-90ac-4912-a273-0897a7bbad64",
+          "opportunity_tag": "search completely broken after app update",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "search feature turned to trash",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "2026 Edit: The search feature has turned to trash. Stop making your apps worse. Google Photos, Google Maps\u2014both were way better, now I'm leaving for competitors.\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026.\u2026.\u2026\u2026\u2026 2023 Edit: Latest update ruined the editing options.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "0b000e1a-be3b-4acf-a364-5575d70901ab",
+          "opportunity_tag": "search completely broken after app update",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "search absolutely worthless",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "Search is absolutely worthless.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        }
+      ]
+    },
+    {
+      "name": "Content exists but isn't indexed where expected",
+      "case_count": 17,
+      "human_verified_count": 10,
+      "llm_classified_partial_count": 7,
+      "cases": [
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1uirwt9",
+          "opportunity_tag": "photos surface in auto memories but not in gallery/search",
+          "photo_type": "photos of 2nd and 3rd child growing up, 2017-2019",
+          "what_they_remember": [
+            "approximate date range (2017-2019)",
+            "the content: kids growing up"
+          ],
+          "what_they_forgot": [
+            "which phone/device they were on at the time",
+            "why the photos vanished from the main gallery"
+          ],
+          "search_attempt": "checked old phones one by one; looked in the main Google Photos gallery",
+          "outcome": "failure",
+          "workaround": "relies on Google's auto-generated Memory reels, the only place fragments still surface",
+          "_text": "Photos missing but in memory reels?\nI am missing all my photos from 2017 to 2019. Its very upsetting because it's photos of my 2nd child growing up from 4 or 5 months up and my 3rd child being born to 18 months old. I have all my old phones and cant seem to find them either, I'm not 100% which phone i had but none have these pictures. How do I find them? I never deleted them. Another strange thing is that I'll get random memory reels that Google makes and there will be photos i can't find in my goggle gallery otherwise from around those years. Anyone have any clue what's going on or how i can get these photos and videos back?",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1uirwt9/photos_missing_but_in_memory_reels/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "3c905b64-706d-4481-b3cc-306f0416cff1",
+          "opportunity_tag": "edited photos don't sync to sharing pickers",
+          "photo_type": "recently edited photos",
+          "what_they_remember": [
+            "exactly which photos they just edited"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "searched different folders inside the FB/WhatsApp share picker",
+          "outcome": "failure",
+          "workaround": "waited a week (still failed); found them fine on an old Pixel 3 instead",
+          "_text": "Something annoying happened in the recent version! I usually edit pictures and send them to friends. Now, after I edit them, although I see them in the gallery, when I try to choose from FB or Whatsapp - I can't find the edited ones at all! I tried to search in different folders - nothing... Update after the developer's replay: I waited enough time, the photos didn't appear in my gallery till now (after a week!) And even more - I see them in the gallery on my old Pixel 3",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "422f2a98-0ddf-4525-b371-9a960cb55b82",
+          "opportunity_tag": "edited photos don't sync to sharing pickers",
+          "photo_type": "edited photos (even simple rotations)",
+          "what_they_remember": [
+            "that they just edited/rotated a specific photo"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "tried to find and sort the edited photo into folders",
+          "outcome": "failure",
+          "workaround": "none, ongoing bug since July",
+          "_text": "Annoying Bug. Starting from about July 2026, if you edit a photo (even just rotating it), it will not show up on Google Gallery. Makes it hard to sort photos into different folders when they don't show up.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "14385016964",
+          "opportunity_tag": "face grouping broken for recent photos",
+          "photo_type": "recent photos with people in them",
+          "what_they_remember": [
+            "who was in the recent photos"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "expected People/Faces grouping to auto-organize recent photos as before",
+          "outcome": "failure",
+          "workaround": "none, reported as a bug",
+          "_text": "Faces??\nHello, this app is excellent, however recent photos are not grouping any faces!! Please fix this problem",
+          "_url": "https://apps.apple.com/us/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "app_store",
+          "id": "13435711900",
+          "opportunity_tag": "AI-edited results hard to relocate after creation",
+          "photo_type": "AI-processed/edited results",
+          "what_they_remember": [
+            "that a feature said it had finished processing something"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "looked for the result after the app reported the action was done",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Difficult to use\nIt makes all manner of fancy stuff - tells you it\u2019s done it then hides it away never to be found.",
+          "_url": "https://apps.apple.com/gb/app/google-photos/id962194608"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1vmc24i",
+          "opportunity_tag": "synced library incomplete/inconsistent in gallery integrations",
+          "photo_type": "full backed-up library (~20,000 photos) viewed via OS gallery integration",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "browsed the OS-level Gallery app which pulls from Google Photos access",
+          "outcome": "failure",
+          "workaround": "revoking/re-granting access briefly shows all photos before it reverts to a partial view",
+          "_text": "Google Photos cloud library disappears from OPPO/OnePlus Gallery after syncing\nProblem: Google Photos library appears in Gallery, then disappears Hi everyone, I'm having a strange problem with the Google Photos integration in the default Gallery app, and I'm wondering if anyone else has experienced this or found a solution. I have around 20,000 photos/videos backed up in Google Photos. The situation is: OnePlus Nord 3 (old phone): all my Google Photos photos are visible in the OnePlus Gallery. OnePlus Pad Go 2 (newer tablet): only around 2,700 photos are shown in the OnePlus Gallery. OPPO Find X9 Pro (new phone): only around 3,000 photos are shown in the OPPO Photos/Gallery app. In the Google Photos app itself, all ~20,000 photos are visible and appear to be backed up correctly. The really strange part is what happens when I reset the Google Photos access: I revoke Google Photos access for the OPPO/OnePlus Gallery. I grant access again. The Gallery initially starts loading my entire Google Photos library, and for a short time I can see all ~20,000 photos. After about a minute, most of them disappear again. The Gallery goes back to showing only the ~2,700\u20133,000 photos it normally shows. I've reproduced this on both the OPPO Find X9 Pro and OnePlus Pad Go 2. I have already tried: Revoking and granting Google Photos access again Checking the Google Photos sync/access settings Updating the apps Clearing the Gallery cache Waiting for the library to finish scanning None of these solved the problem. What's especially confusing is that the old OnePlus Nord 3 shows the entire library correctly, while the newer OPPO and OnePlus devices don't. So I'm wondering: Has anyone experienced this exact issue? Is there a way to force the OPPO/OnePlus Gallery to keep the full Google Photos cloud library instead of reverting to only ~3,000 photos? Could this be a Google Photos API/sync issue, or a ColorOS/OxygenOS issue? Any workaround or solution would be greatly appreciated!",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1vmc24i/google_photos_cloud_library_disappears_from/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "5110cb64-a592-4b93-9d7a-48db8b9272c4",
+          "opportunity_tag": "synced library incomplete/inconsistent across devices",
+          "photo_type": "full synced library, cross-device (phone vs laptop)",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "checked the phone app expecting synced photos to appear, confirmed they exist by checking a laptop instead",
+          "outcome": "failure",
+          "workaround": "none, feedback sent with no response",
+          "_text": "latest update is awful. I know my images are synced because I can access them on my laptop but it isn't showing as synced on my phone, it isn't loading on my phone and it is incredibly sluggish. Despite sending 'feedback', nothing changes and I get no responses (despite following their standard guidance of clearing cache etc)",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "cbcdae04-af75-49d3-889f-a6cd0eec1c0b",
+          "opportunity_tag": "photos backed up but missing from gallery",
+          "photo_type": "backed-up photos not appearing in main gallery",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "checked the gallery expecting backed-up photos to be visible",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "this app is good but photo storage is not good some photo is not coming to the gallery and the photo was not very good just good photos and they some photo is not coming this is the complain thanks",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "6aa5e76b-d4d7-4db2-a1dc-e59af306fb8d",
+          "opportunity_tag": "face grouping/labeling broken",
+          "photo_type": "photos of a specific person (self)",
+          "what_they_remember": [
+            "their own face/identity"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "tried to label/tag own face to enable face-based search",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "I can't label my face or search for it",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "23dacf60-656a-44e6-8d7b-fd50ef90f132",
+          "opportunity_tag": "share picker doesn't surface recently added photos",
+          "photo_type": "recently downloaded/saved photos, used in a share picker",
+          "what_they_remember": [
+            "that they just downloaded/saved a specific photo"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "opened the share picker expecting the recent photo at the top; it sorted by other metadata instead",
+          "outcome": "failure",
+          "workaround": "goes to the Files app instead, where it shows correctly, then shares from there when the target app supports it",
+          "_text": "very bad navigation. whenever I have to send or share a photo I never find it in photos, because it never show recently downloaded photos on top. it uses some metadata which is useless. example if I have to send a photo to a person just downloaded from Gmail, it goes far below in choose photo list. I have to go to files application, then I see the photo on the top, then I click share button. but there are few applications like gmail, doesn't support files, in this case I take screenshot of file",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "5f912d6e-7fb0-4901-8ff3-b608b21b0699",
+          "opportunity_tag": "photos backed up but missing from gallery",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Sometimes a recent photo is not showing",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "8457344b-60bb-46aa-bfe6-533241125099",
+          "opportunity_tag": "photos backed up but missing from gallery",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "edited photos not appearing in other apps",
+          "outcome": "failure",
+          "workaround": "none reported",
+          "_text": "this app worked great until recently. now anytime I crop or edit a picture in anyway, it no longer shows up on my camera, recent photos, or any other album in other apps to post. I thought it was a Facebook issue but as it turns out the photos no longer show up on fb, Lightroom, Vinted, eBay, etc. which is pretty inconvenient if you want to post something. none of the recent updates have fixed this issue. before it was a 5/5 now it's a 3/5 please fix this bug!",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "6cd8a38c-946a-464d-ae9d-5ec8e2a867a7",
+          "opportunity_tag": "face grouping broken",
+          "photo_type": "face grouping",
+          "what_they_remember": [
+            "face detection automatically reset",
+            "cannot see a familiar face"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "face detection automatically reset i cannot see a familar face. App is telling me to set new face. please fix this glitch",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "1fdb3c7f-7ee9-47a5-b5d8-1c3ed77636c1",
+          "opportunity_tag": "face grouping broken for recent photos",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none reported",
+          "_text": "At this stage I can not just go to my photos, I must wait for memory to be to see my photos or to get to a specific person. Not happy!!!!!!!",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "1dfcb09f-d264-4ed9-83bc-634607e49018",
+          "opportunity_tag": "photos missing from gallery",
+          "photo_type": "photo",
+          "what_they_remember": [
+            "2016"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "recavar karo 2016",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "mera shabhi photo recavar karo 2016",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "d33ee492-b426-4634-9da2-198616d09ba7",
+          "opportunity_tag": "favorite tags missing after backup",
+          "photo_type": "",
+          "what_they_remember": [
+            "favorite photos tag"
+          ],
+          "what_they_forgot": [
+            "tag after backing up to new device"
+          ],
+          "search_attempt": "searching for favorite tag",
+          "outcome": "failure",
+          "workaround": "reapply tags manually",
+          "_text": "Lost my favorite photos tag when backing up to a new device...",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "c6ea2973-28f9-4465-a439-69a2a0953b57",
+          "opportunity_tag": "photos backed up but missing from gallery",
+          "photo_type": "photo",
+          "what_they_remember": [
+            "sister's photo"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "search for sister's photo",
+          "outcome": "failure",
+          "workaround": "none reported",
+          "_text": "my sister's photo is not there",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        }
+      ]
+    },
+    {
+      "name": "Fragmentation / apparent loss",
+      "case_count": 10,
+      "human_verified_count": 4,
+      "llm_classified_partial_count": 6,
+      "cases": [
+        {
+          "verification": "human-verified",
+          "source": "play_store",
+          "id": "c31a80e5-b341-4038-9915-b650a767491a",
+          "opportunity_tag": "photo appears lost, wants it restored",
+          "photo_type": "unspecified single photo",
+          "what_they_remember": [
+            "that a specific photo used to exist"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "please return my photo",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1jorhqu",
+          "opportunity_tag": "fragmented across multiple accounts, no unified search",
+          "photo_type": "photos scattered across 18 separate accounts, unorganized",
+          "what_they_remember": [
+            "that the photo exists somewhere in one of the accounts"
+          ],
+          "what_they_forgot": [
+            "which of the 18 accounts it's in"
+          ],
+          "search_attempt": "manually sifting through years of photos account by account",
+          "outcome": "gave_up",
+          "workaround": "keeps creating new accounts instead of organizing, now blocked from creating more",
+          "_text": "I have 18 Google Photos accounts and I can't create more\nYes you read that correctly. For the past 6 years I've been using Google photos and every time the 15 free GB of storage runs out, I create a new account. The problem is this is becoming awful because if I want to find a specific photo I need to sift through years of them, unorganized and hope to GOD I find it. Another issue is that I tried creating my 19th account last night but the number I use to confirm I'm not a robot in the Google account creation has \"been used too many times\". Now granted I could use my friend's number to do this and I can then create another account but the fundamental problem is that I have 18 \u00d7 15 GB of storage completely filled and I don't know what to do to organize it or keep it all in one place/never have to create new accounts. Any thoughts?",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1jorhqu/i_have_18_google_photos_accounts_and_i_cant/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_post",
+          "id": "1ld3faz",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "photos/videos from a specific trip in 2022",
+          "what_they_remember": [
+            "the specific trip and moment with a long-distance partner",
+            "roughly when it happened"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "checked every folder/album, turned on backup retroactively expecting it to resurface, checked native gallery too",
+          "outcome": "failure",
+          "workaround": "turned on backup after the fact, but nothing new appeared",
+          "_text": "Disappearing videos?\nI have a Moto Stylus G that came with Google Photos as its default gallery app. I found the app too awkward to navigate, so I downloaded a third party gallery app and mostly use that as my default. The main thing I kept Google Photos around for was old pictures, since I've used the same google account since I was 13 and the app stored photos and videos as far back as 2016 if not longer. Just now, I remembered a moment from a trip I took in 2022 to visit my long-distance partner, and I knew I'd probably taken a video of that moment, so I went to go find it. It wasn't in my regular gallery app, since I took the video before I got this phone, but I figured if it wasn't there, Google Photos would have it. Not only is that video missing, but so is *every* photo and video I took from that trip. I've checked in just about every folder I could think of, and it just isn't there anymore. The app told me to try turning on backup, which I did (begrudgingly, as I'd had it off until now for privacy reasons), but that hasn't brought me anything new, either. I can't tell if the app is deleting my photos/videos, hiding them in some hard-to-find folder, locking my older pics behind me opting into backup, or if it's all in some meant-to-be-obvious spot that I just can't find because this app is so annoying to navigate. Is there a way for me to find the photos + videos from this trip again, or is it just gone forever now?",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1ld3faz/disappearing_videos/"
+        },
+        {
+          "verification": "human-verified",
+          "source": "reddit_comment",
+          "id": "1jorhqu_c1",
+          "opportunity_tag": "fragmented across multiple accounts, no unified search",
+          "photo_type": "photos scattered across many accounts",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Pay $2 \u274c Create lots of accounts and can't find anything \u2705",
+          "_url": "https://www.reddit.com/r/googlephotos/comments/1jorhqu/i_have_18_google_photos_accounts_and_i_cant/"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "6d3c4cdb-582f-400d-8986-f70ebc426cd8",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "it has helped me to recover some of my loss photos",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "943c217e-80f6-4424-b8d3-c8e6e4031955",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "",
+          "workaround": "",
+          "_text": "It deleted photos other than the ones that are backed up on using the free up space on this device feature.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "f539abee-f9e4-4cd5-95c8-da5af7bb243b",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "none reported",
+          "_text": "you can't get your pictures back",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "75cd71f5-af5d-48cc-b280-82460f275df2",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "my photo got automatically deleted",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "70fff14f-755b-4de7-b54b-488caa62323a",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "image/video",
+          "what_they_remember": [
+            "image/video"
+          ],
+          "what_they_forgot": [],
+          "search_attempt": "none",
+          "outcome": "failure",
+          "workaround": "none",
+          "_text": "Photo has only one thing I don't like, it suddenly make my image/video blank... asking me to use data to restore.",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        },
+        {
+          "verification": "llm-classified",
+          "source": "play_store",
+          "id": "f8889680-a466-4f27-9c49-2f5586bc3078",
+          "opportunity_tag": "photos vanish/hidden with no clear explanation",
+          "photo_type": "",
+          "what_they_remember": [],
+          "what_they_forgot": [],
+          "search_attempt": "",
+          "outcome": "failure",
+          "workaround": "",
+          "_text": "I want to recover my photo",
+          "_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.photos"
+        }
+      ]
+    }
+  ]
+}

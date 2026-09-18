@@ -55,7 +55,10 @@ try:
             if not row.get("is_retrieval_case"):
                 continue
             n_llm_true += 1
-            cluster_num = row.get("cluster")
+            try:
+                cluster_num = int(row.get("cluster"))
+            except (TypeError, ValueError):
+                cluster_num = None
             cluster_name = CLUSTER_NAMES.get(cluster_num)
             if cluster_name is None:
                 continue
@@ -80,18 +83,31 @@ for name, cases in clusters.items():
         "name": name,
         "case_count": len(cases),
         "human_verified_count": sum(1 for c in cases if c["verification"] == "human-verified"),
-        "llm_classified_count": sum(1 for c in cases if c["verification"] == "llm-classified"),
+        "llm_classified_partial_count": sum(1 for c in cases if c["verification"] == "llm-classified"),
         "cases": cases,
     })
 out_clusters.sort(key=lambda c: c["case_count"], reverse=True)
 
+total_rows = int(json.load(open("data/discovery_findings.json"))["total_rows"])
+rows_eligible_for_llm = total_rows - len(ground_truth)
 total_cases = sum(c["case_count"] for c in out_clusters)
+
 report = {
-    "total_rows": int(json.load(open("data/discovery_findings.json"))["total_rows"]),
+    "total_rows": total_rows,
     "human_tagged_sample_size": len(ground_truth),
     "human_verified_cases": sum(c["human_verified_count"] for c in out_clusters),
-    "llm_rows_classified": n_llm_total,
-    "llm_verified_cases": n_llm_true,
+    "llm_classification_coverage": {
+        "rows_eligible": rows_eligible_for_llm,
+        "rows_classified": n_llm_total,
+        "coverage_pct": round(n_llm_total / rows_eligible_for_llm * 100, 1) if rows_eligible_for_llm else 0,
+        "note": (
+            f"LLM classification of the full corpus was capped at a bounded wall-clock time "
+            f"budget due to unpredictable burst/congestion throttling on Groq's free tier. "
+            f"Only {n_llm_total:,} of {rows_eligible_for_llm:,} remaining (not hand-tagged) rows "
+            f"were classified in this run — this is PARTIAL coverage, not the full corpus."
+        ),
+    },
+    "llm_classified_partial_cases": n_llm_true,
     "total_confirmed_cases": total_cases,
     "clusters": out_clusters,
 }
@@ -100,7 +116,10 @@ with open("data/discovery_findings_v2.json", "w") as f:
     json.dump(report, f, indent=2)
 
 print(f"wrote data/discovery_findings_v2.json: {total_cases} total cases "
-      f"({report['human_verified_cases']} human-verified + {report['llm_verified_cases']} llm-classified) "
-      f"across {len(out_clusters)} clusters")
+      f"({report['human_verified_cases']} human-verified + {report['llm_classified_partial_cases']} "
+      f"llm-classified-partial) across {len(out_clusters)} clusters")
+print(f"LLM coverage: {n_llm_total:,}/{rows_eligible_for_llm:,} rows "
+      f"({report['llm_classification_coverage']['coverage_pct']}%)")
 for c in out_clusters:
-    print(f"  {c['name']}: {c['case_count']} (human {c['human_verified_count']} / llm {c['llm_classified_count']})")
+    print(f"  {c['name']}: {c['case_count']} (human {c['human_verified_count']} / "
+          f"llm-partial {c['llm_classified_partial_count']})")

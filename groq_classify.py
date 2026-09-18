@@ -106,6 +106,18 @@ def _parse_reset(s):
 
 _tracker = RateLimitTracker()
 
+MIN_CALL_INTERVAL = 65  # hard floor between API call attempts, regardless of headers —
+                        # Groq's free/on-demand tier throttles on burst/congestion, not
+                        # just the advertised per-minute token budget
+_last_call_at = [0.0]
+
+
+def _enforce_min_interval():
+    wait = MIN_CALL_INTERVAL - (time.time() - _last_call_at[0])
+    if wait > 0:
+        time.sleep(wait)
+    _last_call_at[0] = time.time()
+
 
 def classify_batch(rows, tries=5):
     """rows: list of {"i": int, "text": str}. Returns dict i -> result dict, or {} on failure."""
@@ -129,6 +141,7 @@ def classify_batch(rows, tries=5):
     _tracker.wait_if_needed(est_tokens)
 
     for attempt in range(tries):
+        _enforce_min_interval()
         try:
             resp = requests.post(
                 GROQ_URL,
@@ -167,11 +180,19 @@ def classify_batch(rows, tries=5):
                 continue
         if resp.status_code == 429:
             retry_after = resp.headers.get("retry-after")
-            wait = float(retry_after) if retry_after else _parse_reset(
+            raw_wait = float(retry_after) if retry_after else _parse_reset(
                 resp.headers.get("x-ratelimit-reset-tokens", "10s")
             )
-            print(f"  [classify_batch] 429 on attempt {attempt+1}, waiting {wait+1:.0f}s")
-            time.sleep(wait + 1)
+            # cap: under a bounded time budget, a single 429 shouldn't burn the whole
+            # window — if the real wait is longer than this, give up this batch fast
+            # and let the caller move on / retry it in a later pass instead.
+            wait = min(raw_wait, MIN_CALL_INTERVAL)
+            print(f"  [classify_batch] 429 on attempt {attempt+1} (server asked for "
+                  f"{raw_wait:.0f}s, capping wait to {wait:.0f}s)")
+            time.sleep(wait)
+            if raw_wait > MIN_CALL_INTERVAL:
+                # server wants a long cooldown; don't keep burning retries against it
+                return {}
             continue
         if resp.status_code in (500, 502, 503, 504):
             wait = min(30, 5 * (2 ** attempt))

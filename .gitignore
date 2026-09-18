@@ -5,7 +5,7 @@ run_log*.txt
 streamlit_run.log
 streamlit_test.log
 validate_log*.txt
-run_llm_log.txt
+run_llm_log*.txt
 data/raw_play_store.csv
 data/raw_app_store.csv
 data/raw_reddit.csv

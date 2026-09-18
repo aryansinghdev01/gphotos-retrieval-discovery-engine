@@ -159,18 +159,27 @@ for i, cluster in enumerate(clusters):
             metric_cols[0].metric("Cases", cluster["case_count"])
             if findings["version"] == 2:
                 metric_cols[1].metric("Human-verified", cluster.get("human_verified_count", 0))
-                metric_cols[2].metric("LLM-classified", cluster.get("llm_classified_count", 0))
+                metric_cols[2].metric("LLM-classified*", cluster.get("llm_classified_partial_count", 0))
             for case in cluster["cases"][:3]:
                 quote = (case.get("_text") or "").strip().replace("\n", " ")
                 if len(quote) > 200:
                     quote = quote[:200].rstrip() + "…"
                 url = case.get("_url")
                 st.markdown(f"> {quote}")
-                badge = "🧑 human-verified" if case.get("verification") == "human-verified" else "🤖 LLM-classified"
+                badge = "🧑 human-verified" if case.get("verification") == "human-verified" else "🤖 LLM-classified*"
                 caption = f"{case.get('source', '')} · {case.get('opportunity_tag', '')} · {badge}"
                 if url:
                     st.markdown(f"[source]({url})")
                 st.caption(caption)
+
+if findings["version"] == 2:
+    cov = findings.get("llm_classification_coverage", {})
+    st.caption(
+        f"*LLM-classified cases come from a **partial** pass over the untagged corpus — "
+        f"{cov.get('rows_classified', 0):,} of {cov.get('rows_eligible', 0):,} eligible rows "
+        f"({cov.get('coverage_pct', 0)}%) were classified before a bounded time budget was hit. "
+        f"See Methodology below for why."
+    )
 
 st.divider()
 
@@ -283,8 +292,8 @@ st.divider()
 st.header("Methodology")
 
 if findings["version"] == 2:
-    llm_rows = findings.get("llm_rows_classified", 0)
-    llm_cases = findings.get("llm_verified_cases", 0)
+    cov = findings.get("llm_classification_coverage", {})
+    llm_cases = findings.get("llm_classified_partial_cases", 0)
     human_cases = findings.get("human_verified_cases", 0)
     st.markdown(
         f"""
@@ -295,11 +304,16 @@ if findings["version"] == 2:
   failures from general complaints — this is the ground truth.
 - An LLM classifier (Groq, `{CHAT_MODEL}`) was validated blind against those {findings['human_tagged_sample_size']}
   hand-tagged rows before being trusted on anything else — see the validation numbers below.
-- The same classifier was then run on the remaining **{llm_rows:,} rows**, adding
-  **{llm_cases} LLM-classified retrieval-failure cases** on top of the **{human_cases} human-verified**
-  ones from the hand-tagged sample — **{findings['total_confirmed_cases']} confirmed cases** total
-  across the full corpus. Every case in the cards above is labeled human-verified or LLM-classified
-  so you can see which is which.
+- The same classifier was then run on the remaining **{cov.get('rows_eligible', 0):,} untagged rows**,
+  but only completed **{cov.get('rows_classified', 0):,} of them ({cov.get('coverage_pct', 0)}%)**
+  before hitting a bounded time budget — Groq's free tier applies an unpredictable
+  burst/congestion throttle that made full coverage impractical within a reasonable wall-clock
+  time. **This is partial coverage, not the full corpus** — treat the LLM-classified count as a
+  lower bound, not a complete scan.
+- That partial pass added **{llm_cases} LLM-classified cases** on top of the **{human_cases}
+  human-verified** ones from the hand-tagged sample — **{findings['total_confirmed_cases']}
+  confirmed cases** total so far. Every case in the cards above is labeled human-verified or
+  LLM-classified so you can see which is which.
 """
     )
     validation_path = os.path.join(BASE_DIR, "data", "validation_report.json")
@@ -315,7 +329,9 @@ if findings["version"] == 2:
         st.caption(
             f"Confusion: {v['confusion']['tp']} true positives, {v['confusion']['fp']} false "
             f"positives, {v['confusion']['tn']} true negatives, {v['confusion']['fn']} false "
-            f"negatives (is_retrieval_case classification, blind — tags stripped before sending)."
+            f"negatives (is_retrieval_case classification, blind — tags stripped before sending). "
+            f"Scored on {v['n_rows'] - v.get('n_missing_predictions', 0)} of {v['n_rows']} rows — "
+            f"{v.get('n_missing_predictions', 0)} rows got no prediction (API failures) and are excluded."
         )
 else:
     st.markdown(
