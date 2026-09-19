@@ -313,6 +313,24 @@ st.header("Methodology")
 if findings["version"] == 2:
     cov = findings.get("llm_classification_coverage", {})
     clf = findings["classifier"]
+    _NICE = {"play_store": "Play Store", "app_store": "App Store", "reddit_post": "Reddit post", "reddit_comment": "Reddit comment"}
+    _unreached = [_NICE.get(k, k) for k, v in cov.get("coverage_by_source", {}).items() if v["classified"] == 0]
+    _unreached_txt = ", ".join(_unreached[:-1]) + (" and " if len(_unreached) > 1 else "") + _unreached[-1] if _unreached else "no"
+    _human_by_src = {}
+    for _c in findings["clusters"]:
+        for _case in _c["cases"]:
+            if _case.get("labeled_by") == "human":
+                _human_by_src[_case["source"]] = _human_by_src.get(_case["source"], 0) + 1
+    _human_src_txt = ", ".join(f"{n} {_NICE.get(s, s)}" for s, n in
+                               sorted(_human_by_src.items(), key=lambda kv: -kv[1]))
+    st.info(
+        f"**Scope of the automated scaling:** it covered Play Store only — {cov.get('rows_classified', 0):,} of "
+        f"{cov.get('rows_eligible', 0):,} untagged rows; "
+        f"{_unreached_txt} rows were never reached. "
+        f"LLMs also over-flag long reviews, so the {findings['llm_cases']} LLM-labeled cases are **not** a representative "
+        f"scale-up of the full corpus. The **{findings['human_cases']} hand-verified cases** — from a hand-tagged sample of "
+        f"100 rows from each of the four sources ({_human_src_txt}) — are the primary, trustworthy evidence base."
+    )
     full = cov.get("rows_classified", 0) >= cov.get("rows_eligible", 1)
     failed = cov.get("rows_failed_after_retries")
     cov_src = "; ".join(f"`{k}` {v['classified']:,}/{v['eligible']:,}" for k, v in cov.get("coverage_by_source", {}).items())

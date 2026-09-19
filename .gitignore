@@ -11,3 +11,6 @@ data/raw_app_store.csv
 data/raw_reddit.csv
 data/llm_classification_progress.jsonl
 data/llm_classification_failures.jsonl
+autofinish_log.txt
+validate_mini_log.txt
+data/llm_classification_v2_gpt-oss-120b_partial_710.jsonl

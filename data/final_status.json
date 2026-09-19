@@ -1,0 +1,57 @@
+{
+  "reason": "stopped: no new rows for 30 minutes (1540 rows classified)",
+  "finalized_at": "2026-09-19 08:50:26",
+  "rows_in_checkpoint": 1540,
+  "dry_run": false,
+  "merge_ok": true,
+  "merge_output": "wrote data/discovery_findings_v2.json | models={'openai/gpt-oss-120b': 710, 'qwen/qwen3.8-27b': 830}\nLLM coverage: 1,540/4,146 (37.1%) | not yet classified: 2606 | failed after retries: n/a (run unfinished) | elapsed: Nones\ncases: 50 human + 479 llm = 529 (llm positives=479, unplaced=0, outside closed tag set=8)\ncluster                                                 human   llm  total\nBrowsing/visual structure removed or broken                23   257    280\nContent exists but isn't indexed where expected            10   102    112\nFragmentation / apparent loss                               4    74     78\nSearch itself is broken                                    13    46     59\n",
+  "per_cluster": {
+    "Browsing/visual structure removed or broken": {
+      "human": 23,
+      "llm": 257,
+      "total": 280
+    },
+    "Content exists but isn't indexed where expected": {
+      "human": 10,
+      "llm": 102,
+      "total": 112
+    },
+    "Fragmentation / apparent loss": {
+      "human": 4,
+      "llm": 74,
+      "total": 78
+    },
+    "Search itself is broken": {
+      "human": 13,
+      "llm": 46,
+      "total": 59
+    }
+  },
+  "coverage": {
+    "rows_eligible": 4146,
+    "rows_classified": 1540,
+    "coverage_pct": 37.1,
+    "rows_not_yet_classified": 2606,
+    "rows_failed_after_retries": null,
+    "total_elapsed_seconds": null,
+    "note": "PARTIAL coverage: only 1,540 of 4,146 untagged rows were classified by the LLM."
+  },
+  "rows_by_model": {
+    "openai/gpt-oss-120b": 710,
+    "qwen/qwen3.8-27b": 830
+  },
+  "llm_cases_by_model": {
+    "openai/gpt-oss-120b": 115,
+    "qwen/qwen3.8-27b": 364
+  },
+  "totals": {
+    "human": 50,
+    "llm": 479,
+    "total": 529
+  },
+  "commit_output": "[master 1731914] Update findings: 1,540/4,146 untagged rows LLM-classified (37.1%), 50 human + 479 LLM cases\n 3 files changed, 7102 insertions(+), 616 deletions(-)\n",
+  "push_output": "To https://github.com/aryansinghdev01/gphotos-retrieval-discovery-engine.git\n   36098b0..1731914  master -> master\n",
+  "pushed": true,
+  "commit": "1731914",
+  "live_app_http": 200
+}
