@@ -18,8 +18,14 @@ CHAT_MODEL = "openai/gpt-oss-20b"
 st.set_page_config(page_title="Google Photos Retrieval — Discovery Engine", layout="wide")
 
 
-@st.cache_data
-def load_findings():
+def _file_sig(path):
+    """Changes whenever the file is replaced, so cached data can't outlive a redeploy."""
+    st_ = os.stat(path)
+    return (st_.st_mtime_ns, st_.st_size)
+
+
+@st.cache_data(ttl=300)
+def load_findings(sig):
     """Prefer the LLM-scaled v2 findings; fall back to the original 400-row-only
     findings if v2 hasn't been generated yet. Normalizes both into the same shape."""
     if os.path.exists(FINDINGS_V2_JSON):
@@ -34,8 +40,8 @@ def load_findings():
     return {"version": 1, **data}
 
 
-@st.cache_data
-def load_combined():
+@st.cache_data(ttl=300)
+def load_combined(sig):
     df = pd.read_csv(COMBINED_CSV)
     df["text"] = df["text"].fillna("")
     df["id"] = df["id"].astype(str)
@@ -135,13 +141,23 @@ def ask_groq(question, retrieved, tries=3):
     return {"answer": "The API is temporarily unavailable — try again in a moment.", "cited_ids": []}
 
 
-findings = load_findings()
-df = load_combined()
+_findings_path = FINDINGS_V2_JSON if os.path.exists(FINDINGS_V2_JSON) else FINDINGS_V1_JSON
+findings = load_findings(_file_sig(_findings_path))
+df = load_combined(_file_sig(COMBINED_CSV))
 
 st.title("Google Photos Retrieval — Discovery Engine")
 st.caption(
     "Why people can't find an old photo they remember but can't precisely describe or search for."
 )
+if findings["version"] == 2:
+    _cov = findings.get("llm_classification_coverage", {})
+    st.caption(
+        f"Data version: generated {findings.get('generated_at', 'unknown')} · "
+        f"{_cov.get('rows_classified', 0):,}/{_cov.get('rows_eligible', 0):,} untagged rows LLM-classified · "
+        f"{findings['total_cases']} cases ({findings['human_cases']} human + {findings['llm_cases']} LLM)"
+    )
+else:
+    st.caption("Data version: original hand-tagged findings only (v2 file not found).")
 
 # ---------------------------------------------------------------------------
 # 1. Opportunity-area clusters

@@ -116,7 +116,9 @@ coverage_by_source = {
     for src in sorted(_elig["source"].unique())
 }
 
+from datetime import datetime
 report = {
+    "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M IST"),
     "total_rows": total_rows,
     "human_tagged_sample_size": len(ground_truth),
     "human_cases": human_cases,
