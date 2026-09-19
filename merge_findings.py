@@ -117,6 +117,7 @@ report = {
         "llm_cases_by_model": dict(cases_by_model),
         "closed_tag_set_size": len(gc.TAG_TO_CLUSTER),
         "llm_cases_with_tag_outside_closed_set": other_tag_cases,
+        "llm_flagged_but_unplaced": len(llm_unplaced),
     },
     "llm_classification_coverage": {
         "rows_eligible": eligible,
@@ -146,4 +147,5 @@ print(f"cases: {human_cases} human + {llm_cases} llm = {human_cases + llm_cases}
 print(f"{'cluster':55s} human   llm  total")
 for c in out_clusters:
     print(f"{c['name']:55s} {c['human_count']:5d} {c['llm_count']:5d} {c['case_count']:6d}")
-assert not llm_unplaced, f"LLM-positive rows with no valid cluster: {llm_unplaced[:5]}"
+if llm_unplaced:
+    print(f"WARNING: {len(llm_unplaced)} LLM-flagged rows had no valid cluster and are NOT in any cluster count")

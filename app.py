@@ -314,7 +314,7 @@ if findings["version"] == 2:
 - The LLM classified **{cov.get('rows_classified', 0):,} of the {cov.get('rows_eligible', 0):,} untagged rows
   ({cov.get('coverage_pct', 0)}%)**{' — the full remainder of the corpus.' if full else '. **This is PARTIAL coverage** — Groq\'s free tier throttled every model we tried, so the run was stopped to meet a deadline. Treat LLM counts as a lower bound, not a full scan of the corpus.'}
   Rows by classifier: {by_model}. Every case records its `source_model`.
-  {'No rows failed after retries.' if failed == 0 else (str(failed) + ' rows failed even after retries.' if failed else '')}
+  {(str(clf.get('llm_flagged_but_unplaced', 0)) + ' LLM-flagged rows had no valid cluster and are excluded from the counts. ') if clf.get('llm_flagged_but_unplaced') else ''}{'No rows failed after retries.' if failed == 0 else (str(failed) + ' rows failed even after retries.' if failed else '')}
 - That produced **{findings['llm_cases']} LLM-labeled cases**, kept separate from the
   {findings['human_cases']} human-labeled ones in every count above ({findings['total_cases']} total).
 """
