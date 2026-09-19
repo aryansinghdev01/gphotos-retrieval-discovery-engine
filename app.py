@@ -299,6 +299,7 @@ if findings["version"] == 2:
     clf = findings["classifier"]
     full = cov.get("rows_classified", 0) >= cov.get("rows_eligible", 1)
     failed = cov.get("rows_failed_after_retries")
+    cov_src = "; ".join(f"`{k}` {v['classified']:,}/{v['eligible']:,}" for k, v in cov.get("coverage_by_source", {}).items())
     by_model = ", ".join(f"`{m}`: {n:,} rows" for m, n in clf["rows_classified_by_model"].items())
     st.markdown(
         f"""
@@ -314,6 +315,10 @@ if findings["version"] == 2:
 - The LLM classified **{cov.get('rows_classified', 0):,} of the {cov.get('rows_eligible', 0):,} untagged rows
   ({cov.get('coverage_pct', 0)}%)**{' — the full remainder of the corpus.' if full else '. **This is PARTIAL coverage** — Groq\'s free tier throttled every model we tried, so the run was stopped to meet a deadline. Treat LLM counts as a lower bound, not a full scan of the corpus.'}
   Rows by classifier: {by_model}. Every case records its `source_model`.
+  **Coverage by source: {cov_src}.** The run works through the file in order, so the classified rows are
+  {'not a random sample of the corpus — ' + 'they are the Play Store reviews it reached first (short reviews first, then longer ones), and none from the other sources' if any(v['classified'] == 0 and v['eligible'] > 0 for v in cov.get('coverage_by_source', {}).values()) else 'spread across sources'}.
+  The two classifiers therefore also saw different kinds of rows (short vs long reviews), so their flag rates are not directly comparable.
+  Long reviews were flagged by the LLMs far more often (~43%) than in the hand-tagged sample (17.5%), so the LLM counts likely overstate true cases.
   {(str(clf.get('llm_flagged_but_unplaced', 0)) + ' LLM-flagged rows had no valid cluster and are excluded from the counts. ') if clf.get('llm_flagged_but_unplaced') else ''}{'No rows failed after retries.' if failed == 0 else (str(failed) + ' rows failed even after retries.' if failed else '')}
 - That produced **{findings['llm_cases']} LLM-labeled cases**, kept separate from the
   {findings['human_cases']} human-labeled ones in every count above ({findings['total_cases']} total).

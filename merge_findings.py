@@ -105,6 +105,17 @@ human_cases = sum(c["human_count"] for c in out_clusters)
 llm_cases = sum(c["llm_count"] for c in out_clusters)
 coverage_pct = round(classified / eligible * 100, 1) if eligible else 0
 
+import pandas as pd
+_raw = pd.read_csv("data/raw_combined.csv", usecols=["id", "source"])
+_raw["id"] = _raw["id"].astype(str)
+_gt_ids = {str(r["id"]) for r in ground_truth}
+_elig = _raw[~_raw["id"].isin(_gt_ids)]
+coverage_by_source = {
+    src: {"eligible": int((_elig["source"] == src).sum()),
+          "classified": int(_elig[_elig["source"] == src]["id"].isin(classified_ids).sum())}
+    for src in sorted(_elig["source"].unique())
+}
+
 report = {
     "total_rows": total_rows,
     "human_tagged_sample_size": len(ground_truth),
@@ -124,6 +135,7 @@ report = {
         "rows_classified": classified,
         "coverage_pct": coverage_pct,
         "rows_not_yet_classified": eligible - classified,
+        "coverage_by_source": coverage_by_source,
         "rows_failed_after_retries": len(failures) if failures_current else None,
         "total_elapsed_seconds": summary.get("total_elapsed_seconds"),
         "note": (
@@ -142,6 +154,7 @@ print(f"wrote data/discovery_findings_v2.json | models={report['classifier']['ro
 print(f"LLM coverage: {classified:,}/{eligible:,} ({coverage_pct}%) | not yet classified: {eligible - classified} | "
       f"failed after retries: {len(failures) if failures_current else 'n/a (run unfinished)'} | "
       f"elapsed: {summary.get('total_elapsed_seconds')}s")
+print("coverage by source:", coverage_by_source)
 print(f"cases: {human_cases} human + {llm_cases} llm = {human_cases + llm_cases} "
       f"(llm positives={llm_positive}, unplaced={len(llm_unplaced)}, outside closed tag set={other_tag_cases})")
 print(f"{'cluster':55s} human   llm  total")

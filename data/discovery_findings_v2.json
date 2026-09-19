@@ -26,6 +26,24 @@
     "rows_classified": 1540,
     "coverage_pct": 37.1,
     "rows_not_yet_classified": 2606,
+    "coverage_by_source": {
+      "app_store": {
+        "eligible": 1314,
+        "classified": 0
+      },
+      "play_store": {
+        "eligible": 2165,
+        "classified": 1540
+      },
+      "reddit_comment": {
+        "eligible": 259,
+        "classified": 0
+      },
+      "reddit_post": {
+        "eligible": 408,
+        "classified": 0
+      }
+    },
     "rows_failed_after_retries": null,
     "total_elapsed_seconds": null,
     "note": "PARTIAL coverage: only 1,540 of 4,146 untagged rows were classified by the LLM."
